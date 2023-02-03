@@ -21,3 +21,4 @@ const ensurePRHasAssignee = () => {
 };
 
 reviewLargePR();
+ensurePRHasAssignee();
