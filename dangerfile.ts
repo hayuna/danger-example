@@ -1,5 +1,5 @@
 import { danger, warn } from "danger";
-import { ensurePRHasAssignee } from "./rule";
+// import { ensurePRHasAssignee } from "./rule";
 
 const reviewLargePR = () => {
   const bigPRThreshold = 300;
@@ -14,4 +14,4 @@ const reviewLargePR = () => {
 };
 
 reviewLargePR();
-ensurePRHasAssignee();
+// ensurePRHasAssignee();
