@@ -15,10 +15,8 @@ jobs:
       - name: yarn install, build, and test
         run: |
           yarn install  --frozen-lockfile
+          npm run combine-danger-file"
       - name: Danger
         run: yarn danger ci
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-      - name: log
-        run: |
-          ls -la
