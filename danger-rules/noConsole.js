@@ -24,7 +24,7 @@ const defaultCallback = (file, matches) =>
  * Danger plugin to prevent merging code that still has `console.log`s inside it.
  */
 
-export default async function noConsole(options = {}) {
+const noConsole = async (options = {}) => {
   const whitelist = options.whitelist || [];
   const callback = options.callback || defaultCallback;
   if (!Array.isArray(whitelist))
@@ -57,6 +57,6 @@ export default async function noConsole(options = {}) {
 
       callback(file, matches);
     });
-}
+};
 
 noConsole();
