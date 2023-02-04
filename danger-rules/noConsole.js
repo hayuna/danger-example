@@ -23,14 +23,8 @@ const defaultCallback = (file, matches) =>
 /**
  * Danger plugin to prevent merging code that still has `console.log`s inside it.
  */
-interface NoConsoleOptions {
-  whitelist: any;
-  callback: any;
-}
 
-export default async function noConsole(
-  options: NoConsoleOptions = { whitelist: [], callback: defaultCallback }
-) {
+export default async function noConsole(options = {}) {
   const whitelist = options.whitelist || [];
   const callback = options.callback || defaultCallback;
   if (!Array.isArray(whitelist))
@@ -58,12 +52,10 @@ export default async function noConsole(
   additions
     .filter(({ diff }) => !!diff)
     .forEach(({ file, diff }) => {
-      if (diff) {
-        const matches = findConsole(diff.added, whitelist);
-        if (matches.length === 0) return;
+      const matches = findConsole(diff.added, whitelist);
+      if (matches.length === 0) return;
 
-        callback(file, matches);
-      }
+      callback(file, matches);
     });
 }
 
