@@ -17,6 +17,10 @@ const findConsole = (content, whitelist) => {
   return matches;
 };
 
+const isFileInDangerRules = (file) => {
+  return file.includes("danger-rules/");
+};
+
 const defaultCallback = (file, matches) =>
   fail(`${matches.length} console statement(s) added in ${file}.`);
 
@@ -52,10 +56,12 @@ const noConsole = async (options = {}) => {
   additions
     .filter(({ diff }) => !!diff)
     .forEach(({ file, diff }) => {
-      const matches = findConsole(diff.added, whitelist);
-      if (matches.length === 0) return;
+      if (!isFileInDangerRules(file)) {
+        const matches = findConsole(diff.added, whitelist);
+        if (matches.length === 0) return;
 
-      callback(file, matches);
+        callback(file, matches);
+      }
     });
 };
 
