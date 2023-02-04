@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "combine-danger-file": "npx ts-node scripts/combineDangerfile"
+    "combine-danger-file": "cat ./danger-rules/* > dangerfile.ts"
   },
   "keywords": [],
   "author": "",
