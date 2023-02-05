@@ -15,7 +15,8 @@ jobs:
       - name: yarn install, build, and test
         run: |
           yarn install  --frozen-lockfile
-          npm run combine-danger-file
+          npm run danger-compile
+          npm run danger-combine
       - name: Danger
         run: yarn danger ci
         env:

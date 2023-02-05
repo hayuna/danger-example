@@ -4,7 +4,7 @@ const PATTERN = /console\.(log|error|warn|info)/;
 const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
 const JS_FILE = /\.(js|ts)x?$/i;
 
-const findConsole = (file, content, whitelist) => {
+const findConsole = (file: string, content, whitelist) => {
   const lines = content.split("\n");
   console.log(lines);
   const response = [];

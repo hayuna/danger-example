@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "combine-danger-file": "cat ./danger-rules/* > dangerfile.ts"
+    "danger-compile": "tsc ./danger-rules/*.ts",
+    "danger-combine": "cat ./danger-rules/*.js > dangerfile.ts"
   },
   "keywords": [],
   "author": "",
