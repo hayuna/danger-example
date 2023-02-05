@@ -1,9 +1,5 @@
 import { danger, warn } from "danger";
-
-interface NoConsoleOptions {
-  whitelist?: string[];
-  callback?: (file: string, matches: number) => void;
-}
+import { NoConsoleOptions } from "../types";
 
 const PATTERN = /console\.(log|error|warn|info)/;
 const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
