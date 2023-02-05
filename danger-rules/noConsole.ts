@@ -10,14 +10,14 @@ const JS_FILE = /\.(js|ts)x?$/i;
 //   whichConsole: string;
 // }
 
-const findConsole = (content, whitelist) => {
+const findConsole = (file, content, whitelist) => {
   const lines = content.split("\n");
   console.log(lines);
   const response = [];
   lines.forEach((line, lineNumber) => {
     let matches = line.match(PATTERN);
     if (matches) {
-      console.log(matches);
+      console.log({ type: matches[0], lineNumber, file });
       // const consoles = matches.filter((match) => {
       //   const singleMatch = PATTERN.exec(match);
       //   if (!singleMatch || singleMatch.length === 0) return false;
@@ -59,7 +59,7 @@ const noConsole = async ({
     .forEach(({ file, diff }) => {
       if (!isFileInDangerRules(file)) {
         if (diff) {
-          const matches = findConsole(diff.added, whitelist);
+          const matches = findConsole(file, diff.added, whitelist);
           if (matches.length === 0) return;
           callback(file, matches.length);
         }
