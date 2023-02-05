@@ -50,7 +50,7 @@ const noConsole = async ({
         if (diff) {
           const matches = findConsole(file, diff.added, whitelist);
           if (matches.length === 0) return;
-          callback(matches);
+          matches.forEach(callback);
         }
       }
     });
