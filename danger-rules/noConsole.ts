@@ -5,8 +5,10 @@ const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
 const JS_FILE = /\.(js|ts)x?$/i;
 
 const findConsole = (content, whitelist) => {
+  const lines = content.split("\n");
+  console.log(lines);
   let matches = content.match(GLOBAL_PATTERN);
-  console.log(matches);
+
   if (!matches) return [];
 
   const consoles = matches.filter((match) => {
