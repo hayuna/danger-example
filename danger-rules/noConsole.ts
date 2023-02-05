@@ -50,7 +50,10 @@ const noConsole = async ({
   const diffs = [...danger.git.created_files, ...danger.git.modified_files]
     .filter((file) => JS_FILE.test(file))
     .map((file) => {
-      return danger.git.diffForFile(file).then((diff) => ({ file, diff }));
+      return danger.git.diffForFile(file).then((diff) => {
+        console.log({ diff, file });
+        return { file, diff };
+      });
     });
 
   const additions = await Promise.all(diffs);
