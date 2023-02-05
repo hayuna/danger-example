@@ -6,6 +6,7 @@ const JS_FILE = /\.(js|ts)x?$/i;
 
 const findConsole = (content, whitelist) => {
   let matches = content.match(GLOBAL_PATTERN);
+  console.log(matches);
   if (!matches) return [];
 
   const consoles = matches.filter((match) => {
