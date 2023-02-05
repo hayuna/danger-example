@@ -4,6 +4,7 @@ const PATTERN = /console\.(log|error|warn|info)/;
 const JS_FILE = /\.(js|ts)x?$/i;
 
 type ConsoleType = "log" | "error" | "warn" | "info";
+type LogLevel = "fail" | "warn" | "message";
 
 interface ConsoleResult {
   type: string;
@@ -13,7 +14,7 @@ interface ConsoleResult {
 
 interface NoConsoleOptions {
   whitelist?: string[];
-  logLevel?: ConsoleType;
+  logLevel?: LogLevel;
   failMessage?: string;
 }
 
@@ -80,6 +81,16 @@ const noConsole = async ({
 };
 
 noConsole({
+  logLevel: "message",
+  failMessage: `%consoleType found in %file:%lineNumber`,
+});
+
+noConsole({
   logLevel: "warn",
+  failMessage: `%consoleType found in %file:%lineNumber`,
+});
+
+noConsole({
+  logLevel: "fail",
   failMessage: `%consoleType found in %file:%lineNumber`,
 });
