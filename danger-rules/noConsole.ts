@@ -34,7 +34,7 @@ const noConsole = async ({
     const message = failMessage
       .replace("%file", matches.file)
       .replace("%lineNumber", matches.lineNumber)
-      .replace("%type", matches.type);
+      .replace("%consoleType", matches.type);
 
     switch (logLevel) {
       case "warn":
