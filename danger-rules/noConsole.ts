@@ -1,4 +1,4 @@
-import { danger, warn, fail } from "danger";
+import { danger, warn, fail, message } from "danger";
 
 const PATTERN = /console\.(log|error|warn|info)/;
 const JS_FILE = /\.(js|ts)x?$/i;
@@ -44,17 +44,23 @@ const noConsole = async ({
   failMessage = "%file:%lineNumber - %consoleType found",
 }: NoConsoleOptions = {}) => {
   const callback = (matches: ConsoleResult) => {
-    const message = failMessage
+    const fullMessage = failMessage
       .replace("%file", matches.file)
       .replace("%lineNumber", `${matches.lineNumber}`)
       .replace("%consoleType", matches.type);
 
     switch (logLevel) {
+      case "fail":
+        fail(fullMessage);
+        break;
       case "warn":
-        warn(message);
+        warn(fullMessage);
+        break;
+      case "message":
+        message(fullMessage);
         break;
       default:
-        fail(message);
+        message(fullMessage);
         break;
     }
   };
