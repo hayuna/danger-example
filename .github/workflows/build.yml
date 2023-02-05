@@ -17,6 +17,7 @@ jobs:
           yarn install  --frozen-lockfile
           npm run danger-compile
           npm run danger-combine
+          cat dangerfile.ts
       - name: Danger
         run: yarn danger ci
         env:
