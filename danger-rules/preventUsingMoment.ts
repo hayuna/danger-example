@@ -6,7 +6,7 @@ const filesOnly = (file: string) =>
 const getCreatedFileNames = (createdFiles: string[]) =>
   createdFiles.filter(filesOnly);
 
-const preventUsingMoment = () => {
+export const preventUsingMoment = () => {
   const newMomentImports = getCreatedFileNames(danger.git.created_files).filter(
     (filename) => {
       const content = fs.readFileSync(filename).toString();

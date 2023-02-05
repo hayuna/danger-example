@@ -38,7 +38,7 @@ const isFileInDangerRules = (file: string): boolean => {
   return file.includes("danger-rules/");
 };
 
-const noConsole = async ({
+export const noConsole = async ({
   whitelist = [],
   logLevel = "warn",
   failMessage = "%file:%lineNumber - %consoleType found",
@@ -87,16 +87,6 @@ const noConsole = async ({
 };
 
 noConsole({
-  logLevel: "message",
-  failMessage: `%consoleType found in %file:%lineNumber`,
-});
-
-noConsole({
   logLevel: "warn",
-  failMessage: `%consoleType found in %file:%lineNumber`,
-});
-
-noConsole({
-  logLevel: "fail",
   failMessage: `%consoleType found in %file:%lineNumber`,
 });
