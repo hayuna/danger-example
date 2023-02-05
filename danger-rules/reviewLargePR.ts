@@ -12,6 +12,6 @@ const reviewLargePR = () => {
   }
 };
 
-export { reviewLargePR };
+module.exports = { reviewLargePR };
 
 reviewLargePR();
