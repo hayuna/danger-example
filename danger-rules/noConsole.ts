@@ -1,5 +1,4 @@
 import { danger, warn } from "danger";
-import { NoConsoleOptions } from "../types";
 
 const PATTERN = /console\.(log|error|warn|info)/;
 const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
@@ -29,7 +28,10 @@ const defaultCallback = (file: string, matches: number) => {
 const noConsole = async ({
   whitelist = [],
   callback = defaultCallback,
-}: NoConsoleOptions = {}) => {
+}: {
+  whitelist?: string[];
+  callback?: (file: string, matches: number) => void;
+} = {}) => {
   const diffs = [...danger.git.created_files, ...danger.git.modified_files]
     .filter((file) => JS_FILE.test(file))
     .map((file) => {
