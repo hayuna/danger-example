@@ -1,4 +1,4 @@
-import { danger, warn } from "danger";
+import { danger, warn, fail } from "danger";
 
 const PATTERN = /console\.(log|error|warn|info)/;
 const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
@@ -25,14 +25,26 @@ const isFileInDangerRules = (file) => {
   return file.includes("danger-rules/");
 };
 
-const defaultCallback = (matches) => {
-  warn(`${matches.file}:${matches.lineNumber} - ${matches.type} found`);
-};
-
 const noConsole = async ({
   whitelist = [],
-  callback = defaultCallback,
+  logLevel = "warn",
+  failMessage = "%file:%lineNumber - %consoleType found",
 } = {}) => {
+  const callback = (matches) => {
+    const message = failMessage
+      .replace("%file", matches.file)
+      .replace("%lineNumber", matches.lineNumber)
+      .replace("%type", matches.type);
+
+    switch (logLevel) {
+      case "warn":
+        warn(message);
+        break;
+      default:
+        fail(message);
+        break;
+    }
+  };
   const diffs = [...danger.git.created_files, ...danger.git.modified_files]
     .filter((file) => JS_FILE.test(file))
     .map((file) => {
@@ -56,4 +68,7 @@ const noConsole = async ({
     });
 };
 
-noConsole();
+noConsole({
+  logLevel: "warn",
+  failMessage: `%consoleType found in %file:%lineNumber`,
+});
