@@ -1,18 +1,30 @@
 import { danger, warn, fail } from "danger";
 
 const PATTERN = /console\.(log|error|warn|info)/;
-const GLOBAL_PATTERN = new RegExp(PATTERN.source, "g");
 const JS_FILE = /\.(js|ts)x?$/i;
 
-const findConsole = (file: string, content, whitelist) => {
+type ConsoleType = "log" | "error" | "warn" | "info";
+
+interface ConsoleResult {
+  type: string;
+  lineNumber: number;
+  file: string;
+}
+
+interface NoConsoleOptions {
+  whitelist?: string[];
+  logLevel?: ConsoleType;
+  failMessage?: string;
+}
+
+const findConsole = (file: string, content: string, whitelist: string[]) => {
   const lines = content.split("\n");
-  console.log(lines);
-  const response = [];
+
+  const response: ConsoleResult[] = [];
   lines.forEach((line, lineNumber) => {
     let matches = line.match(PATTERN);
     if (matches) {
       if (!whitelist.includes(matches[1])) {
-        // @ts-ignore
         response.push({ type: matches[0], lineNumber, file });
       }
     }
@@ -21,7 +33,7 @@ const findConsole = (file: string, content, whitelist) => {
   return response;
 };
 
-const isFileInDangerRules = (file) => {
+const isFileInDangerRules = (file: string): boolean => {
   return file.includes("danger-rules/");
 };
 
@@ -29,11 +41,11 @@ const noConsole = async ({
   whitelist = [],
   logLevel = "warn",
   failMessage = "%file:%lineNumber - %consoleType found",
-} = {}) => {
-  const callback = (matches) => {
+}: NoConsoleOptions = {}) => {
+  const callback = (matches: ConsoleResult) => {
     const message = failMessage
       .replace("%file", matches.file)
-      .replace("%lineNumber", matches.lineNumber)
+      .replace("%lineNumber", `${matches.lineNumber}`)
       .replace("%consoleType", matches.type);
 
     switch (logLevel) {
@@ -47,10 +59,9 @@ const noConsole = async ({
   };
   const diffs = [...danger.git.created_files, ...danger.git.modified_files]
     .filter((file) => JS_FILE.test(file))
-    .map((file) => {
-      return danger.git.diffForFile(file).then((diff) => {
-        return { file, diff };
-      });
+    .map(async (file) => {
+      const diff = await danger.git.diffForFile(file);
+      return { file, diff };
     });
 
   const additions = await Promise.all(diffs);
