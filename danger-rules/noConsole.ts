@@ -25,7 +25,7 @@ const findConsole = (file: string, content: string, whitelist: string[]) => {
     let matches = line.match(PATTERN);
     if (matches) {
       if (!whitelist.includes(matches[1])) {
-        response.push({ type: matches[0], lineNumber, file });
+        response.push({ type: matches[0], lineNumber: lineNumber + 1, file });
       }
     }
   });
