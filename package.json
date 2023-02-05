@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "danger-compile": "tsc ./danger-rules/*.ts --target esnext --moduleResolution node",
+    "danger-compile": "tsc ./danger-rules/*.ts",
     "danger-combine": "cat ./danger-rules/*.js > dangerfile.ts"
   },
   "keywords": [],
