@@ -31,21 +31,17 @@ const noConsole = async ({
   failMessage = "%file:%lineNumber - %consoleType found",
 } = {}) => {
   const callback = (matches) => {
-    let fullMessage = "";
-    matches.forEach((match) => {
-      const message = failMessage
-        .replace("%file", match.file)
-        .replace("%lineNumber", match.lineNumber)
-        .replace("%consoleType", match.type);
-      fullMessage += `${message}\n`;
-    });
+    const message = failMessage
+      .replace("%file", matches.file)
+      .replace("%lineNumber", matches.lineNumber)
+      .replace("%consoleType", matches.type);
 
     switch (logLevel) {
       case "warn":
-        warn(fullMessage);
+        warn(message);
         break;
       default:
-        fail(fullMessage);
+        fail(message);
         break;
     }
   };
@@ -66,7 +62,7 @@ const noConsole = async ({
         if (diff) {
           const matches = findConsole(file, diff.added, whitelist);
           if (matches.length === 0) return;
-          callback(matches);
+          matches.forEach(callback);
         }
       }
     });
