@@ -2,7 +2,7 @@ name: Node CI
 on:
   - pull_request
 jobs:
-  install yarn:
+  install-yarn:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -15,7 +15,7 @@ jobs:
       - name: yarn install
         run: |
           yarn install  --frozen-lockfile
-  run danger:
+  run-danger:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
