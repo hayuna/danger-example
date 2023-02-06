@@ -2,7 +2,7 @@ name: Node CI
 on:
   - pull_request
 jobs:
-  install-yarn:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -15,14 +15,6 @@ jobs:
       - name: yarn install
         run: |
           yarn install  --frozen-lockfile
-  run-danger:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 18.x
       - name: run danger
         run: |
           npm run danger-remove-export-const  
