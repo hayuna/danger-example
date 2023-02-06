@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "danger-compile": "sed -i 's/export const/const/g' ./danger-rules/*.ts; tsc ./danger-rules/*.ts --target esnext --moduleResolution node",
+    "danger-remove-export-const": "sed -i 's/export const/const/g' ./danger-rules/*.ts",
+    "danger-remove-export-function": "sed -i 's/export function/function/g' ./danger-rules/*.ts",
+    "danger-compile": "tsc ./danger-rules/*.ts --target esnext --moduleResolution node",
     "danger-combine": "cat ./danger-rules/*.js > dangerfile.ts"
   },
   "keywords": [],

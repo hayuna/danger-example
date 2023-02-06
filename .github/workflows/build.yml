@@ -2,7 +2,7 @@ name: Node CI
 on:
   - pull_request
 jobs:
-  test:
+  install yarn:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -12,9 +12,21 @@ jobs:
           node-version: 18.x
       - name: install yarn
         run: npm install -g yarn
-      - name: yarn install, build, and test
+      - name: yarn install
         run: |
           yarn install  --frozen-lockfile
+  run danger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: run danger
+        run: |
+          npm run danger-remove-export-const  
+          npm run danger-remove-export-function
           npm run danger-compile
           npm run danger-combine
           cat dangerfile.ts
@@ -22,3 +34,4 @@ jobs:
         run: yarn danger ci
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+      
