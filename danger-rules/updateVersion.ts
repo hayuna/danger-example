@@ -1,13 +1,12 @@
 import { danger, warn } from "danger";
 
-const updateVersion = async () => {
+const updateVersion = () => {
   console.log(`started updateVersion`);
-  const packageDiff = await danger.git.JSONDiffForFile("package.json");
-  if (!packageDiff.version) {
-    warn("Shouldn't you update package version?");
-  }
+  danger.git.JSONDiffForFile("package.json").then((packageDiff) => {
+    if (!packageDiff.version) {
+      warn("Shouldn't you update package version?");
+    }
+  });
 };
 
-(async () => {
-  await updateVersion();
-})();
+updateVersion();
