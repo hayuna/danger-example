@@ -43,48 +43,50 @@ export const noConsole = async ({
   logLevel = "warn",
   failMessage = "%file:%lineNumber - %consoleType found",
 }: NoConsoleOptions = {}) => {
-  console.log(`started noConsole`);
-  const callback = (matches: ConsoleResult) => {
-    const fullMessage = failMessage
-      .replace("%file", matches.file)
-      .replace("%lineNumber", `${matches.lineNumber}`)
-      .replace("%consoleType", matches.type);
+  (async () => {
+    console.log(`started noConsole`);
+    const callback = (matches: ConsoleResult) => {
+      const fullMessage = failMessage
+        .replace("%file", matches.file)
+        .replace("%lineNumber", `${matches.lineNumber}`)
+        .replace("%consoleType", matches.type);
 
-    switch (logLevel) {
-      case "fail":
-        fail(fullMessage);
-        break;
-      case "warn":
-        warn(fullMessage);
-        break;
-      case "message":
-        message(fullMessage);
-        break;
-      default:
-        message(fullMessage);
-        break;
-    }
-  };
-  const diffs = [...danger.git.created_files, ...danger.git.modified_files]
-    .filter((file) => JS_FILE.test(file))
-    .map(async (file) => {
-      const diff = await danger.git.diffForFile(file);
-      return { file, diff };
-    });
-
-  const additions = await Promise.all(diffs);
-
-  additions
-    .filter(({ diff }) => !!diff)
-    .forEach(({ file, diff }) => {
-      if (!isFileInDangerRules(file)) {
-        if (diff) {
-          const matches = findConsole(file, diff.added, whitelist);
-          if (matches.length === 0) return;
-          matches.forEach(callback);
-        }
+      switch (logLevel) {
+        case "fail":
+          fail(fullMessage);
+          break;
+        case "warn":
+          warn(fullMessage);
+          break;
+        case "message":
+          message(fullMessage);
+          break;
+        default:
+          message(fullMessage);
+          break;
       }
-    });
+    };
+    const diffs = [...danger.git.created_files, ...danger.git.modified_files]
+      .filter((file) => JS_FILE.test(file))
+      .map(async (file) => {
+        const diff = await danger.git.diffForFile(file);
+        return { file, diff };
+      });
+
+    const additions = await Promise.all(diffs);
+
+    additions
+      .filter(({ diff }) => !!diff)
+      .forEach(({ file, diff }) => {
+        if (!isFileInDangerRules(file)) {
+          if (diff) {
+            const matches = findConsole(file, diff.added, whitelist);
+            if (matches.length === 0) return;
+            matches.forEach(callback);
+          }
+        }
+      });
+  })();
 };
 
 noConsole({
