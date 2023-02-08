@@ -1,6 +1,7 @@
 import { danger, warn } from "danger";
 
 export const reviewLargePR = () => {
+  console.log(`started reviewLargePR`);
   const bigPRThreshold = 300;
   if (
     danger.github.pr.additions + danger.github.pr.deletions >
