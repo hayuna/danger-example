@@ -79,6 +79,7 @@ export const noConsole = async ({
       .filter(({ diff }) => !!diff)
       .forEach(({ file, diff }) => {
         if (!isFileInDangerRules(file)) {
+          console.log(file);
           if (diff) {
             const matches = findConsole(file, diff.added, whitelist);
             if (matches.length === 0) return;
