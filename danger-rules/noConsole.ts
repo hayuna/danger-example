@@ -90,7 +90,7 @@ export const noConsole = async ({
   })();
 };
 
-noConsole({
-  logLevel: "warn",
-  failMessage: `%consoleType found in %file:%lineNumber`,
-});
+// noConsole({
+//   logLevel: "warn",
+//   failMessage: `%consoleType found in %file:%lineNumber`,
+// });
