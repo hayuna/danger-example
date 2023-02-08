@@ -1,6 +1,7 @@
 import { danger, warn } from "danger";
 
 const requireChangelog = ({ changelogFile }: { changelogFile: string }) => {
+  console.log(`started requireChangelog`);
   const hasChangelog = danger.git.modified_files.includes(changelogFile);
 
   if (!hasChangelog) {

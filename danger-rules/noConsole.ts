@@ -43,6 +43,7 @@ export const noConsole = async ({
   logLevel = "warn",
   failMessage = "%file:%lineNumber - %consoleType found",
 }: NoConsoleOptions = {}) => {
+  console.log(`started noConsole`);
   const callback = (matches: ConsoleResult) => {
     const fullMessage = failMessage
       .replace("%file", matches.file)
