@@ -7,8 +7,7 @@ const requireChangelog = ({ changelogFile }: { changelogFile: string }) => {
   if (!hasChangelog) {
     warn(
       "Please add a changelog entry for your changes. You can find it in `" +
-        changelogFile +
-        "` \n\nPlease add your change and name to the main section."
+        changelogFile
     );
   }
 };
