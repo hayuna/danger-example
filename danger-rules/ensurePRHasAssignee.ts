@@ -1,4 +1,4 @@
-import { danger, warn } from "../import-danger";
+import { danger, warn } from ".";
 
 export const ensurePRHasAssignee = () => {
   console.log(`started ensurePRHasAssignee`);
