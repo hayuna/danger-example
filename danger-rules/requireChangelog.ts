@@ -1,10 +1,10 @@
-import { danger, warn } from "danger";
+import { danger, warn } from ".";
 
 interface RequireChangelog {
   readonly changelogFile: string;
 }
 
-const requireChangelog = ({ changelogFile }: RequireChangelog) => {
+export const requireChangelog = ({ changelogFile }: RequireChangelog) => {
   const hasChangelog = danger.git.modified_files.includes(changelogFile);
 
   if (!hasChangelog) {
@@ -14,7 +14,3 @@ const requireChangelog = ({ changelogFile }: RequireChangelog) => {
     );
   }
 };
-
-requireChangelog({
-  changelogFile: "CHANGELOG.md",
-});

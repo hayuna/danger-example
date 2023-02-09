@@ -1,4 +1,4 @@
-import { danger, warn, fail, message } from "danger";
+import { danger, warn, fail, message } from ".";
 
 const PATTERN = /console\.(log|error|warn|info)/;
 const JS_FILE = /\.(js|ts)x?$/i;
@@ -89,8 +89,3 @@ export const noConsole = async ({
       });
   })();
 };
-
-noConsole({
-  logLevel: "warn",
-  failMessage: `%consoleType found in %file:%lineNumber`,
-});

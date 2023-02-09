@@ -1,4 +1,4 @@
-import { danger, warn } from "danger";
+import { danger, warn } from ".";
 
 interface ReviewLargePR {
   readonly linesLimit: number;
@@ -11,5 +11,3 @@ export const reviewLargePR = ({ linesLimit }: ReviewLargePR) => {
     );
   }
 };
-
-reviewLargePR({ linesLimit: 300 });
