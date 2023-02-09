@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "danger-pr": "DANGER_GITHUB_API_TOKEN=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 yarn danger pr https://github.com/hayuna/danger-example/pull/1",
+    "danger-init": "npm run danger-remove-export-const && npm run danger-remove-export-function && npm run danger-compile && npm run danger-combine",
     "danger-remove-export-const": "sed -i 's/export const/const/g' ./danger-rules/*.ts",
     "danger-remove-export-function": "sed -i 's/export function/function/g' ./danger-rules/*.ts",
     "danger-compile": "tsc ./danger-rules/*.ts --target esnext --moduleResolution node",

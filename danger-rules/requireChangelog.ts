@@ -1,7 +1,10 @@
 import { danger, warn } from "danger";
 
-const requireChangelog = ({ changelogFile }: { changelogFile: string }) => {
-  console.log(`started requireChangelog`);
+interface RequireChangelog {
+  readonly changelogFile: string;
+}
+
+const requireChangelog = ({ changelogFile }: RequireChangelog) => {
   const hasChangelog = danger.git.modified_files.includes(changelogFile);
 
   if (!hasChangelog) {
