@@ -15,12 +15,6 @@ jobs:
       - name: yarn install
         run: |
           yarn install  --frozen-lockfile
-      # - name: run danger
-      #   run: |
-      #     npm run danger-remove-export-const  
-      #     npm run danger-remove-export-function
-      #     npm run danger-compile
-      #     npm run danger-combine
       - name: Danger
         run: yarn danger ci
         env:
