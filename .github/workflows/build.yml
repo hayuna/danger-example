@@ -15,6 +15,7 @@ jobs:
       - name: yarn install
         run: |
           yarn install  --frozen-lockfile
+          npm run test:cov
       - name: Danger
         run: yarn danger ci
         env:
