@@ -3,6 +3,7 @@ import { noConsole } from "./danger-rules/noConsole";
 import { requireChangelog } from "./danger-rules/requireChangelog";
 import { reviewLargePR } from "./danger-rules/reviewLargePR";
 import { updateVersion } from "./danger-rules/updateVersion";
+import { showTestReport } from "./danger-rules/showTestReport";
 
 ensurePRHasAssignee();
 
@@ -18,3 +19,5 @@ requireChangelog({
 reviewLargePR({ linesLimit: 300 });
 
 updateVersion();
+
+showTestReport();
