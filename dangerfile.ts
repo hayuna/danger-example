@@ -25,5 +25,5 @@ export const message = declareGlobal("message");
 export const warn = declareGlobal("warn");
 export const fail = declareGlobal("fail");
 
-fail("test");
+// fail("test");
 ensurePRHasAssignee();
