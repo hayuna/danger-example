@@ -1,4 +1,4 @@
-import coverage from "danger-plugin-coverage";
+import { coverage } from "./plugin";
 
 const showTestReport = async () => {
   await coverage();
