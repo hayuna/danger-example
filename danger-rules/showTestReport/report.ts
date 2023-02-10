@@ -7,10 +7,6 @@ import { Parser as XMLParser } from "xml2js";
 const parse = async (filePath) => {
   const xmlParser = new XMLParser();
 
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
   const data = fs.readFileSync(filePath);
   const { coverage: coverageXml } = await xmlParser.parseStringPromise(data);
 
