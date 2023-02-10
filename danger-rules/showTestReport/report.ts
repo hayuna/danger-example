@@ -1,15 +1,5 @@
 import fs from "fs";
-import glob from "fast-glob";
 import { Parser as XMLParser } from "xml2js";
-
-/**
- * Get the path to the coverage report.
- */
-const getReportPath = () => {
-  const [filePath] = glob.sync(`${process.cwd()}/*/clover.xml`);
-
-  return filePath;
-};
 
 /**
  * Parse the coverage report.
@@ -31,7 +21,7 @@ const parse = async (filePath) => {
  * Get the coverage report.
  */
 export const getCoverageReport = async (customReportPath) => {
-  const filePath = customReportPath || getReportPath();
+  const filePath = customReportPath || "./coverage/clover.xml";
   const response = await parse(filePath);
   return response;
 };
