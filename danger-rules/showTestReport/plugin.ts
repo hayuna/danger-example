@@ -1,5 +1,5 @@
 import { danger, markdown, warn } from "../";
-import path from "path";
+import * as path from "path";
 
 import { getCoverageReport } from "./report";
 
