@@ -9,6 +9,7 @@ const newLine = "\n";
  * Get flatened file details.
  */
 const getFlatFiles = (coverage) => {
+  console.log(coverage);
   const parentKey = ["project", "package"].find((key) => key in coverage);
 
   if (parentKey) {
@@ -307,7 +308,7 @@ const getCombinedMetrics = (files) =>
  */
 const getRelevantFiles = (coverageXml, { showAllFiles }) => {
   const files = getFlatFiles(coverageXml);
-  console.log(files);
+  console.log(files[0]);
   const allFiles = [
     ...(danger.git?.created_files || []),
     ...(danger.git?.modified_files || []),
