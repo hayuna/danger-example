@@ -1,24 +1,23 @@
-import { danger, warn, fail } from "danger";
+import { ensurePRHasAssignee } from "./danger-rules/ensurePRHasAssignee";
+import { noConsole } from "./danger-rules/noConsole";
+import { requireChangelog } from "./danger-rules/requireChangelog";
+import { reviewLargePR } from "./danger-rules/reviewLargePR";
+import { updateVersion } from "./danger-rules/updateVersion";
+import { showTestReport } from "./danger-rules/showTestReport";
 
-const reviewLargePR = () => {
-  const bigPRThreshold = 300;
-  if (
-    danger.github.pr.additions + danger.github.pr.deletions >
-    bigPRThreshold
-  ) {
-    warn(
-      `:exclamation: Pull Request size seems relatively large. If Pull Request contains multiple changes, split each into separate PR for faster, easier review.`
-    );
-  }
-};
-
-const ensurePRHasAssignee = () => {
-  if (danger.github.pr.assignee === null) {
-    fail(
-      `Please assign someone to merge this PR, and optionally include people who should review`
-    );
-  }
-};
-
-reviewLargePR();
 ensurePRHasAssignee();
+
+noConsole({
+  logLevel: "warn",
+  failMessage: `%consoleType found in %file:%lineNumber`,
+});
+
+requireChangelog({
+  changelogFile: "CHANGELOG.md",
+});
+
+reviewLargePR({ linesLimit: 300 });
+
+updateVersion();
+
+showTestReport();

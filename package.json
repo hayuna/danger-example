@@ -4,12 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "test:cov": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "danger": "^11.2.3"
+    "danger": "^11.2.3",
+    "danger-plugin-coverage": "^1.6.2",
+    "fast-glob": "^3.2.12",
+    "typescript": "^4.9.5",
+    "vitest": "^0.28.4",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.28.4"
   }
 }
